@@ -51,8 +51,8 @@ export default function Signup() {
             <Input.Password prefix={<LockOutlined />} placeholder="设置密码"/>
           </Form.Item>
           <Form.Item {...tailLayout} name="loginBtn">
-            <Button type='primary' shape='round' htmlType='submit' size='large' block style={{background: "#42c02e", borderColor: 'none'}}>
-              登录
+            <Button type='primary' shape='round' htmlType='submit' size='large' block style={{background: "#42c02e", border: 'none'}}>
+              注册
             </Button>
           </Form.Item>
         </Form>

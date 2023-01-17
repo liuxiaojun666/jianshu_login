@@ -52,7 +52,7 @@ export default function Login() {
             <span style={{float: 'right'}}>登录遇到问题?</span>
           </Form.Item>
           <Form.Item {...tailLayout} name="loginBtn">
-            <Button type='primary' shape='round' htmlType='submit' size='large' block>
+            <Button type='primary' shape='round' htmlType='submit' size='large' block style={{background: '#3194d0'}}>
               登录
             </Button>
           </Form.Item>
