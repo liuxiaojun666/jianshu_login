@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="login">
       <Card>
-        <Router>
+        <Router basename='jianshu_login'>
           <div className="sign-in-sing-up">
             <Link to="/login" className={ currentIndex === 0 ? "current-router" : ''} onClick={() => changeRoute(0)}>登录</Link>
             <b>·</b>
