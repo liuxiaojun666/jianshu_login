@@ -1,0 +1,33 @@
+
+.login {
+  margin: 10% auto 0;
+  width: 500px;
+}
+.sign-in-sing-up {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.sign-in-sing-up b,a {
+  padding: 10px;
+}
+.sign-in-sing-up b {
+  font-weight: 700;
+}
+.sign-in-sing-up a {
+  color: #969696;
+  font-size: 18px;
+}
+.sign-in-sing-up a:hover {
+  color: #969696;
+  text-decoration: none !important;
+}
+.current-router {
+  padding: 10px;
+  border-bottom: 2px solid #ea6f5a;
+  color: #ea6f5a !important;
+  font-weight: 700;
+}
+.sign-in-sing-up a:hover {
+  border-bottom: 2px solid #ea6f5a;
+}

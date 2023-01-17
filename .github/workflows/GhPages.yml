@@ -1,0 +1,68 @@
+name: push to gh-pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: main
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14.18.1'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build
+      run: npm run build
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GH_PAGES_DEPLOY_TOKEN }}
+        publish_dir: ./build
+        full_commit_message: ${{ github.event.head_commit.message }}
+
+  # sync:
+  #   needs: deploy
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #   - name: Sync Github Repos To Gitee  # 名字随便起
+  #     uses: Yikun/hub-mirror-action@v1.1  # 使用Yikun/hub-mirror-action
+  #     with:
+  #       src: github/liuxiaojun666  # 源端账户名(github)
+  #       dst: gitee/lxj_web  # 目的端账户名(gitee)
+  #       dst_key: ${{ secrets.SYNC_GITEE_SSH_PRIVITE_KEY }}  # SSH密钥对中的私钥
+  #       dst_token:  ${{ secrets.GITEE_TOKEN }}  # Gitee账户的私人令牌
+  #       account_type: user  # 账户类型
+  #       clone_style: "https"  # 使用https方式进行clone，也可以使用ssh
+  #       debug: true  # 启用后会显示所有执行命令
+  #       force_update: true  # 启用后，强制同步，即强制覆盖目的端仓库
+  #       static_list: "vite-vue3-admin"  # 静态同步列表，在此填写需要同步的仓库名称，可填写多个
+  #       timeout: '600s'  # git超时设置，超时后会自动重试git操作
+
+  # update:
+  #   needs: sync
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #   - name: Update Gitee Pages
+  #     uses: yanglbme/gitee-pages-action@main
+  #     with:
+  #       # 注意替换为你的 Gitee 用户名
+  #       gitee-username: lxj_web
+  #       # 注意在 Settings->Secrets 配置 GITEE_PASSWORD
+  #       gitee-password: ${{ secrets.GITEE_PASSWORD }}
+  #       # 注意替换为你的 Gitee 仓库，仓库名严格区分大小写，请准确填写，否则会出错
+  #       gitee-repo: lxj_web/vite-vue3-admin
+  #       # 要部署的分支，默认是 master，若是其他分支，则需要指定（指定的分支必须存在）
+  #       branch: gh-pages
