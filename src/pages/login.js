@@ -15,15 +15,22 @@ const loginRules = {
   Password: [{ required: true, message: '请输入密码' }],
 }
 export default function Login() {
+  const [loading, setLoading] = React.useState(false)
   const onFinish = (values) => {
     console.log('Success:', values)
     const user = {
       email: values.email,   
       password: values.password
     }
+
+    setLoading(true)
     axios.post('https://conduit.productionready.io/api/users/login', {user}).then(() => {
       localStorage.setItem('user', JSON.stringify({remember: values.remember, ...user}))
       message.success('登录成功')
+      setLoading(false)
+    }).catch((err) => {
+      setLoading(false)
+      message.error(JSON.stringify(err.response.data.errors))
     })
   }
   let user = localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'))
@@ -53,7 +60,7 @@ export default function Login() {
           </Form.Item>
           <Form.Item {...tailLayout} name="loginBtn">
             <Button type='primary' shape='round' htmlType='submit' size='large' block style={{background: '#3194d0'}}>
-              登录
+              登录{loading && <span className="loading">...</span>}
             </Button>
           </Form.Item>
         </Form>
