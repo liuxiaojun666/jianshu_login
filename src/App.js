@@ -10,7 +10,7 @@ function App() {
     setCurrentIndex(index)
   }
   useEffect(() => {
-    if(window.location.pathname === '/signup') {
+    if(window.location.pathname.includes('/signup')) {
       setCurrentIndex(1)
     }
   }, [])
